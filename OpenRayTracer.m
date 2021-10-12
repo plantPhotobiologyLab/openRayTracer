@@ -1711,7 +1711,7 @@ partitionRaysIncidentOnScreenIntoCircularBandsTally[rays_List,screenIndex_Intege
 
 
 (* ::Input::Initialization::Bold:: *)
-calculateDistributionOfIntensityOnScreenInGrid[rays_List,gridCenter_List,spacingX_?NumericQ,spacingY_?NumericQ]:=With[{partitioned = GatherBy[rays,(({Round[(#[[-1,1,2]]-gridCenter[[1]])/spacingX],Round[(#[[-1,1,3]]-gridCenter[[2]])/spacingY]})&)]},Table[{Round[(partitioned[[i,1,-1,1,2]]-gridCenter[[1]])/spacingX]*spacingX,Floor[(partitioned[[i,1,-1,1,3]]-gridCenter[[2]])/spacingY]*spacingY,Sum[partitioned[[i,j,-1,3]],{j,1,Length[partitioned[[i]]]}]},{i,1,Length[partitioned]}]]
+calculateDistributionOfIntensityOnScreenInGrid[rays_List,gridCenter_List,spacingX_?NumericQ,spacingY_?NumericQ]:=With[{partitioned = GatherBy[Select[rays,((#[[-1,1]]=!=Null)&)],(({Round[(#[[-1,1,2]]-gridCenter[[1]])/spacingX],Round[(#[[-1,1,3]]-gridCenter[[2]])/spacingY]})&)]},Table[{Round[(partitioned[[i,1,-1,1,2]]-gridCenter[[1]])/spacingX]*spacingX,Floor[(partitioned[[i,1,-1,1,3]]-gridCenter[[2]])/spacingY]*spacingY,Sum[partitioned[[i,j,-1,3]],{j,1,Length[partitioned[[i]]]}]},{i,1,Length[partitioned]}]]
 
 
 (* ::Input::Initialization::Bold:: *)
